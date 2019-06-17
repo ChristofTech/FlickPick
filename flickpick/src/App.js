@@ -8,31 +8,21 @@ class App extends React.Component {
   constructor() {
     super()
     this.state = {
-      checkedItems: new Map([
-        ["Comedy", false],
-        ["Horror", false]
-      ])
+      checkedItems: new Object({
+        "Comedy": false,
+        "Horror": false
+      })
     }
     this.handleChange = this.handleChange.bind(this)
   }
 
   handleChange(event) {
-    /*
     const {type, name, checked} = event.target
+    //set new checkedItems to previous checkItems
+    let checkedItems = this.state.checkedItems
+    checkedItems[name] = checked
     if (type === "checkbox") {
-      this.setState({[name]: checked})
-    }
-    */
-
-    /*
-    const item = event.target.name;
-    const isChecked = event.target.checked;
-    this.setState(prevState => ({ checkedItems: prevState.checkedItems.set(item, isChecked) }));
-    */
-
-    const {type, name, checked} = event.target
-    if (type === "checkbox") {
-      this.setState(prevState => ({checkedItems: prevState.checkedItems.set(name, checked)}))
+      this.setState(prevState => ({checkedItems: checkedItems}))
     }
   }
 
@@ -56,7 +46,7 @@ class App extends React.Component {
       <Button
         key={button.key}
         type="checkbox"
-        checked={this.state.checkedItems.get(button.name)}
+        checked={this.state.checkedItems["button.name"]}
         name={button.name}
         onChange={this.handleChange}
       />

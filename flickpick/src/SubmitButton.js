@@ -18,12 +18,17 @@ class SubmitButton extends React.Component {
 
     let baseURL = 'https://api.themoviedb.org/3/';
 
-    for (let i in this.props.search) {
-      console.log('Key is: ' + i + '. Value is: ' + this.props.search);
+    // Query maker, get the buttons selected, make this into a function later
+    let tempHashMap = this.props.search
+    let tempHashMapKeys = Object.keys(tempHashMap)
+    let trueArray = []
+    for (let i=0; i < tempHashMapKeys.length; i++) {
+      if (tempHashMap[tempHashMapKeys[i]] === true) trueArray.push(tempHashMapKeys[i])
     }
+    let mapQuery = tempHashMapKeys.join("+")
 
     let configData = `search/movie?api_key=${apiKey}`;
-    let query = `&language=en-US&page=1&query=popular`;
+    let query = `&language=en-US&page=1&query=${mapQuery}`;
     let search = baseURL + configData + query;
     console.log(`Search: ${search}`)
     fetch(search)
@@ -43,6 +48,7 @@ class SubmitButton extends React.Component {
     ToDo List:
     - need to create a prop for my buttons which passes down genre
     - Create Query system, parse for english language
+    - *****need to handle empty results list
     - need event handler which on submit button click will generate grid, boolean based off of state of submit being hit?
     - Create a grid for movies that appears below the searches
     - Create buttons which fetch data
@@ -52,11 +58,9 @@ class SubmitButton extends React.Component {
   render() {
 
     let temp
-    console.log(`API: ${this.state.info}`);
-    //let test = this.state.info.results["0"]
     let resultsList = this.state.info.results
 
-    console.log(resultsList);
+    //console.log(resultsList);
 
     if (resultsList) {
       /*
