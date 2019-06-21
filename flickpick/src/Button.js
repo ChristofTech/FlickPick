@@ -4,7 +4,7 @@ import './Button.css';
 
 const Button = ({ type = 'checkbox', name, checked, onChange }) => {
   return (
-  <div id="ck-button">
+  <div id="ckbox">
     <label>
       <input
         type={type}

@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Button from './Button';
 import SubmitButton from './SubmitButton';
@@ -8,10 +7,10 @@ class App extends React.Component {
   constructor() {
     super()
     this.state = {
-      checkedItems: new Object({
+      checkedItems: {
         "Comedy": false,
         "Horror": false
-      })
+      }
     }
     this.handleChange = this.handleChange.bind(this)
   }
@@ -26,25 +25,22 @@ class App extends React.Component {
     }
   }
 
-  /*
-    Might have to combine submit button with my genre buttons
-    to get data
-  */
   render() {
     const buttonData = [
-      {
-        key: 1,
-        name: "Comedy"
-      },
-      {
-        key: 2,
-        name: "Horror"
-      }
+      {id: 1, name: "Action"},
+      {id: 2, name: "Adventure"},
+      {id: 3, name: "Comedy"},
+      {id: 4, name: "Drama"},
+      {id: 5, name: "Horror"},
+      {id: 6, name: "Musical"},
+      {id: 7, name: "Romance"},
+      {id: 8, name: "Sci-Fi"},
+      {id: 9, name: "Thriller"}
     ]
 
     const buttonComponents = buttonData.map(button =>
       <Button
-        key={button.key}
+        key={button.id}
         type="checkbox"
         checked={this.state.checkedItems["button.name"]}
         name={button.name}
@@ -60,11 +56,14 @@ class App extends React.Component {
 
         <main>
           <h2>Genres:</h2>
-          {buttonComponents}<br />
+          <div style={{display: "flex", "flexWrap": "wrap", "justifyContent": "center"}}>
+            {buttonComponents}
+          </div>
+          <br />
           <SubmitButton search={this.state.checkedItems} />
         </main>
 
-        <footer>
+        <footer style={{border: "solid 1px black"}}>
           Footer
         </footer>
       </div>

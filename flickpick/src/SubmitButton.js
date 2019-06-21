@@ -1,5 +1,7 @@
 import React from 'react'
 
+import FilmStrip from './FilmStrip';
+
 class SubmitButton extends React.Component {
   constructor() {
     super()
@@ -23,9 +25,12 @@ class SubmitButton extends React.Component {
     let tempHashMapKeys = Object.keys(tempHashMap)
     let trueArray = []
     for (let i=0; i < tempHashMapKeys.length; i++) {
-      if (tempHashMap[tempHashMapKeys[i]] === true) trueArray.push(tempHashMapKeys[i])
+      if (tempHashMap[tempHashMapKeys[i]] === true) {
+        trueArray.push(tempHashMapKeys[i])
+      }
     }
-    let mapQuery = tempHashMapKeys.join("+")
+    let mapQuery = trueArray.join("+")
+    console.log(`query: ${mapQuery}`);
 
     let configData = `search/movie?api_key=${apiKey}`;
     let query = `&language=en-US&page=1&query=${mapQuery}`;
@@ -46,38 +51,26 @@ class SubmitButton extends React.Component {
 
   /*
     ToDo List:
-    - need to create a prop for my buttons which passes down genre
-    - Create Query system, parse for english language
-    - *****need to handle empty results list
-    - need event handler which on submit button click will generate grid, boolean based off of state of submit being hit?
-    - Create a grid for movies that appears below the searches
-    - Create buttons which fetch data
-    - Buttons must activate when click, and submit when submit is clicked
-    - Create 9 easy to pick genres
+    - Study Fetch
+    - Fix Query
+    - Create Query system, parse for english language, also fix genre
+    - Fix style for grid
+    - Add search bar, with settings for search
   */
   render() {
 
-    let temp
+    let resultsPrompt
     let resultsList = this.state.info.results
-
-    //console.log(resultsList);
+    let resultsFlag = false
 
     if (resultsList) {
-      /*
-      this.setState({
-        temp: resultsList[2]["original_title"]
-      })
-      */
-      temp = resultsList[2]["original_title"]
-    }
-    else {
-      //that shit be empty
-      /*
-      this.setState({
-        temp: "No Results Found"
-      })
-      */
-      temp = "No Results Found"
+      console.log(resultsList);
+      if (resultsList.length !== 0) {
+        resultsFlag = true
+        resultsPrompt = ""
+      } else {
+        resultsPrompt = "No Results Found"
+      }
     }
 
     return (
@@ -85,10 +78,14 @@ class SubmitButton extends React.Component {
 
         <button onClick={this.handleClick}>Submit</button>
 
-        <div>test: {temp}</div>
+        <div>Results: {resultsPrompt}</div>
+
+        <div>
+          {this.state.loading ? <span>Loading...</span> : (resultsFlag ? <FilmStrip filmlist={resultsList}/> : "No Results.")}
+
+        </div>
       </div>
     )
-    // <span>{this.state.info}</span>
   }
 }
 
