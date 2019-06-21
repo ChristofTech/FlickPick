@@ -22,6 +22,7 @@ class SubmitButton extends React.Component {
 
     // Query maker, get the buttons selected, make this into a function later
     let tempHashMap = this.props.search
+    console.log(tempHashMap);
     let tempHashMapKeys = Object.keys(tempHashMap)
     let trueArray = []
     for (let i=0; i < tempHashMapKeys.length; i++) {
@@ -32,9 +33,17 @@ class SubmitButton extends React.Component {
     let mapQuery = trueArray.join("+")
     console.log(`query: ${mapQuery}`);
 
+    /*
+    Query System For Title
     let configData = `search/movie?api_key=${apiKey}`;
     let query = `&language=en-US&page=1&query=${mapQuery}`;
-    let search = baseURL + configData + query;
+    */
+    let configData = `movie/76341?api_key=${apiKey}`;
+    let query = `&language=en-US`;
+    //let search = baseURL + configData + query;
+    //let search = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${mapQuery}&page=1&include_adult=false`
+    let search = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=35%2C27`
+
     console.log(`Search: ${search}`)
     fetch(search)
       .then(response => response.json())
@@ -51,11 +60,12 @@ class SubmitButton extends React.Component {
 
   /*
     ToDo List:
-    - Study Fetch
-    - Fix Query
+    - Refresh on my code, fetch, etc.
+    - Fix Query, and no results
     - Create Query system, parse for english language, also fix genre
     - Fix style for grid
     - Add search bar, with settings for search
+    - Clean up code spacing
   */
   render() {
 

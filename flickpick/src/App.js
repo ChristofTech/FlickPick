@@ -7,10 +7,7 @@ class App extends React.Component {
   constructor() {
     super()
     this.state = {
-      checkedItems: {
-        "Comedy": false,
-        "Horror": false
-      }
+      checkedItems: {}
     }
     this.handleChange = this.handleChange.bind(this)
   }
@@ -27,15 +24,15 @@ class App extends React.Component {
 
   render() {
     const buttonData = [
-      {id: 1, name: "Action"},
-      {id: 2, name: "Adventure"},
-      {id: 3, name: "Comedy"},
-      {id: 4, name: "Drama"},
-      {id: 5, name: "Horror"},
-      {id: 6, name: "Musical"},
-      {id: 7, name: "Romance"},
-      {id: 8, name: "Sci-Fi"},
-      {id: 9, name: "Thriller"}
+      {id: 28, name: "Action"},
+      {id: 12, name: "Adventure"},
+      {id: 35, name: "Comedy"},
+      {id: 18, name: "Drama"},
+      {id: 27, name: "Horror"},
+      {id: 10402, name: "Music"},
+      {id: 10749, name: "Romance"},
+      {id: 878, name: "Sci-Fi"},
+      {id: 53, name: "Thriller"}
     ]
 
     const buttonComponents = buttonData.map(button =>

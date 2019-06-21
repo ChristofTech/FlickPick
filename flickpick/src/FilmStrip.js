@@ -12,7 +12,7 @@ class FilmStrip extends React.Component {
 // Figure out why bootstrap fucks up my style
   render() {
     let filmlist = this.props.filmlist
-    let maxStripLen = 10
+    let maxStripLen = 20
     const filmClipComponent = filmlist.slice(0, maxStripLen).map((film, id) =>
       <FilmClip
         key={id}
