@@ -1,49 +1,36 @@
 import React from 'react'
-
-import FilmStrip from './FilmStrip';
+import ApiLib from './ApiLib'
+import FilmStrip from './FilmStrip'
 
 class SubmitButton extends React.Component {
   constructor() {
     super()
     this.state = {
       loading: false,
-      info: {},
-      temp: "Temporary Display Title"
+      info: {}
     }
     this.handleClick = this.handleClick.bind(this)
   }
 
   handleClick() {
-    //https://api.themoviedb.org/3/movie/popular?api_key=<<api_key>>&language=en-US&page=1
     this.setState({loading: true})
-    let apiKey = '0ce9778e876db645797841a0fc50de6a';
 
-    let baseURL = 'https://api.themoviedb.org/3/';
-
-    // Query maker, get the buttons selected, make this into a function later
-    let tempHashMap = this.props.search
-    console.log(tempHashMap);
+    // Genre Getter
+    let tempHashMap = this.props.ckObj
+    let idList = this.props.ckList
     let tempHashMapKeys = Object.keys(tempHashMap)
     let trueArray = []
     for (let i=0; i < tempHashMapKeys.length; i++) {
       if (tempHashMap[tempHashMapKeys[i]] === true) {
-        trueArray.push(tempHashMapKeys[i])
+        trueArray.push(idList[i]["id"])
       }
     }
-    let mapQuery = trueArray.join("+")
-    console.log(`query: ${mapQuery}`);
+    let mapQuery = trueArray.join("%2C")
 
-    /*
-    Query System For Title
-    let configData = `search/movie?api_key=${apiKey}`;
-    let query = `&language=en-US&page=1&query=${mapQuery}`;
-    */
-    let configData = `movie/76341?api_key=${apiKey}`;
-    let query = `&language=en-US`;
-    //let search = baseURL + configData + query;
-    //let search = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${mapQuery}&page=1&include_adult=false`
-    let search = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=35%2C27`
-
+    // Query System For Title
+    let search = ApiLib.common.getQuery({
+      "with_genres": mapQuery
+    })
     console.log(`Search: ${search}`)
     fetch(search)
       .then(response => response.json())
@@ -60,12 +47,15 @@ class SubmitButton extends React.Component {
 
   /*
     ToDo List:
+    - Add search bar,
     - Refresh on my code, fetch, etc.
     - Fix Query, and no results
-    - Create Query system, parse for english language, also fix genre
+    - Button Fades, Refresh loads
     - Fix style for grid
-    - Add search bar, with settings for search
-    - Clean up code spacing
+    - Settings for search
+    - Refresh on code/Clean up code spacing
+    - Sort results by popularity, relevance, date, title
+    - Movie Randomizer
   */
   render() {
 
@@ -74,7 +64,7 @@ class SubmitButton extends React.Component {
     let resultsFlag = false
 
     if (resultsList) {
-      console.log(resultsList);
+      //console.log(resultsList);
       if (resultsList.length !== 0) {
         resultsFlag = true
         resultsPrompt = ""
@@ -92,7 +82,6 @@ class SubmitButton extends React.Component {
 
         <div>
           {this.state.loading ? <span>Loading...</span> : (resultsFlag ? <FilmStrip filmlist={resultsList}/> : "No Results.")}
-
         </div>
       </div>
     )
