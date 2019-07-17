@@ -1,14 +1,19 @@
 import React from 'react'
 import './SearchBar.css'
 
-const SearchBar = () => {
+const SearchBar = ({ type = "text", value, name, placeholder, onChange, ddmON }) => {
   return (
     <div className="wrap">
        <div className="search">
-          <input type="text" className="searchTerm" placeholder="Movies, Actors, more..."></input>
-          <button type="submit" className="searchButton">
-            <i className="fa fa-search"></i>
-         </button>
+          <input
+            className="searchTerm"
+            type={type}
+            value={value}
+            name={name}
+            placeholder={placeholder}
+            onChange={onChange}
+            disabled = {ddmON ? "disabled" : ""}>
+          </input>
        </div>
     </div>
 )};

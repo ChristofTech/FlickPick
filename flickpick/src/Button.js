@@ -1,5 +1,4 @@
 import React from 'react'
-
 import './Button.css';
 
 const Button = ({ type = 'checkbox', name, checked, onChange }) => {
@@ -11,7 +10,7 @@ const Button = ({ type = 'checkbox', name, checked, onChange }) => {
         name={name}
         checked={checked}
         onChange={onChange}
-      /><span>{name}</span>
+      /><span className={checked === true ? 'genreChecked' : '' }>{name}</span>
     </label>
   </div>
 )};

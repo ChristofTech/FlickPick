@@ -18,6 +18,7 @@ class SubmitButton extends React.Component {
     // Genre Getter
     let tempHashMap = this.props.ckObj
     let idList = this.props.ckList
+
     let tempHashMapKeys = Object.keys(tempHashMap)
     let trueArray = []
     for (let i=0; i < tempHashMapKeys.length; i++) {
@@ -28,9 +29,19 @@ class SubmitButton extends React.Component {
     let mapQuery = trueArray.join("%2C")
 
     // Query System For Title
-    let search = ApiLib.common.getQuery({
-      "with_genres": mapQuery
-    })
+    console.log(`search: ${this.props.searchQuery}`);
+    let search
+    if (this.props.ddmON === true) {
+      search = ApiLib.discover.getMovies({
+        "with_genres": mapQuery,
+        "query": this.props.searchQuery
+      })
+    } else {
+      search = ApiLib.search.getMovies({
+        "with_genres": mapQuery,
+        "query": this.props.searchQuery
+      })
+    }
     console.log(`Search: ${search}`)
     fetch(search)
       .then(response => response.json())
@@ -47,9 +58,9 @@ class SubmitButton extends React.Component {
 
   /*
     ToDo List:
-    - Add search bar,
-    - Refresh on my code, fetch, etc.
-    - Fix Query, and no results
+    - Fix up style, I want to create a button to make the genres drop down; and develop
+    a method to handle going between search/discover
+    - Fix no results
     - Button Fades, Refresh loads
     - Fix style for grid
     - Settings for search

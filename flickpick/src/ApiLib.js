@@ -1,3 +1,8 @@
+/*
+Referenced cavestri's themoviedb library for the sake of learning:
+https://github.com/cavestri/themoviedb-javascript-library/blob/master/themoviedb.js
+*/
+
 var ApiLib = {};
 
 ApiLib.common = {
@@ -10,12 +15,13 @@ ApiLib.common = {
     return ApiLib.common.baseURL + "genre/movie/list?api_key=" + ApiLib.common.api_key + "&language=" + ApiLib.common.language;
   },
 
-  getQuery: function(options) {
+  query: function(options) {
     var myOptions, query, option;
 
     myOptions = options || {};
 
-    query = ApiLib.common.baseURL + "discover/movie?api_key=" + ApiLib.common.api_key + "&language=" + ApiLib.common.language + "&sort_by=popularity.desc&include_adult=false&include_video=true&page=1"
+    query = "?api_key=" + ApiLib.common.api_key + "&language=" + ApiLib.common.language + "&sort_by=popularity.desc&include_adult=false&include_video=true&page=1"
+    //query = ApiLib.common.baseURL + "search/movie?api_key=" + ApiLib.common.api_key + "&language=" + ApiLib.common.language + "&sort_by=popularity.desc&include_adult=false&include_video=true&page=1"
 
     if (Object.keys(myOptions).length > 0) {
       for (option in myOptions) {
@@ -32,5 +38,21 @@ ApiLib.common = {
   }
 };
 
+/*
+Can search for companies, collections, keywords, movies, people...
+def want to expound upon this library
+*/
+
+ApiLib.discover = {
+  getMovies: function(options) {
+    return ApiLib.common.baseURL + "discover/movie" + ApiLib.common.query(options);
+  }
+}
+
+ApiLib.search = {
+  getMovies: function(options) {
+    return ApiLib.common.baseURL + "search/movie" + ApiLib.common.query(options);
+  }
+}
 
 export default ApiLib;
