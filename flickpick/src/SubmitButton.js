@@ -15,7 +15,7 @@ class SubmitButton extends React.Component {
   handleClick() {
     this.setState({loading: true})
 
-    // Genre Getter
+    // Gets user selected genres
     let tempHashMap = this.props.ckObj
     let idList = this.props.ckList
 
@@ -28,7 +28,7 @@ class SubmitButton extends React.Component {
     }
     let mapQuery = trueArray.join("%2C")
 
-    // Query System For Title
+    // Handles the changes in querying modes, quick pick versus refined search
     console.log(`search: ${this.props.searchQuery}`);
     let search
     if (this.props.ddmON === true) {

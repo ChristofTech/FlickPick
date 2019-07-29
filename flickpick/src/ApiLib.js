@@ -21,7 +21,6 @@ ApiLib.common = {
     myOptions = options || {};
 
     query = "?api_key=" + ApiLib.common.api_key + "&language=" + ApiLib.common.language + "&sort_by=popularity.desc&include_adult=false&include_video=true&page=1"
-    //query = ApiLib.common.baseURL + "search/movie?api_key=" + ApiLib.common.api_key + "&language=" + ApiLib.common.language + "&sort_by=popularity.desc&include_adult=false&include_video=true&page=1"
 
     if (Object.keys(myOptions).length > 0) {
       for (option in myOptions) {

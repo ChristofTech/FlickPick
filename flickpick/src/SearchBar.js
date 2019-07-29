@@ -2,6 +2,7 @@ import React from 'react'
 import './SearchBar.css'
 
 const SearchBar = ({ type = "text", value, name, placeholder, onChange, ddmON }) => {
+  console.log(value)
   return (
     <div className="wrap">
        <div className="search">

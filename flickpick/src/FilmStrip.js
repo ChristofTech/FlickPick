@@ -1,6 +1,7 @@
 import React from 'react'
 import FilmClip from './FilmClip'
 
+// Filmstrip is the area where movies are displayed
 class FilmStrip extends React.Component {
   constructor() {
     super()
@@ -9,7 +10,6 @@ class FilmStrip extends React.Component {
     }
   }
 
-// Figure out why bootstrap fucks up my style
   render() {
     let filmlist = this.props.filmlist
     let maxStripLen = 20

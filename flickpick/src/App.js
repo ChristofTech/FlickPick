@@ -18,8 +18,8 @@ class App extends React.Component {
     this.ddmClick = this.ddmClick.bind(this)
   }
 
+  // Load the genre list from tMDB API, set them all to false
   componentDidMount() {
-      //this.setState({loading: true})
       fetch(ApiLib.common.getGenreList())
           .then(response => response.json())
           .then(data => {
@@ -37,6 +37,7 @@ class App extends React.Component {
           })
   }
 
+  // Handles form field changes
   handleChange(event) {
     const {type, name, checked, value} = event.target
     if (type === "checkbox") {
@@ -52,6 +53,7 @@ class App extends React.Component {
     }
   }
 
+  // Handles when the drop down for the Quick Pick fields is selected
   ddmClick() {
     this.setState(prevState => ({ddmON: !prevState.ddmON}))
   }
@@ -90,7 +92,7 @@ class App extends React.Component {
             </div>
           }
           <div style={{border: "1px solid black", width: "40vw", margin: "0 auto"}} onClick={this.ddmClick}>
-            DDM
+            Quick Pick
           </div>
 
           <br />
